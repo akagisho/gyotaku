@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  ipaddr: MyString
+  source: MyText
+  domain_whois: MyText
+  ipaddr_whois: MyText
+
+two:
+  url: MyString
+  ipaddr: MyString
+  source: MyText
+  domain_whois: MyText
+  ipaddr_whois: MyText

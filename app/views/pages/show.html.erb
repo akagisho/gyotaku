@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @page.url %>
+</p>
+
+<p>
+  <strong>Ipaddr:</strong>
+  <%= @page.ipaddr %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <textarea style="width: 400px; height: 10em; overflow: scroll;"><%= @page.source %></textarea>
+</p>
+
+<p>
+  <strong>Domain whois:</strong>
+  <%= @page.domain_whois %>
+</p>
+
+<p>
+  <strong>Ipaddr whois:</strong>
+  <%= @page.ipaddr_whois %>
+</p>
+
+<div style="width: 400px; height: 300px; overflow: scroll;">
+  <img src="data:image/png;base64,<%= @page.to_base64 %>">
+</div>
+
+<%= link_to 'Edit', edit_page_path(@page) %> |
+<%= link_to 'Back', pages_path %>

@@ -1,0 +1,8 @@
+version: "2"
+services:
+  rails:
+    image: akagisho/rails
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/myapp
