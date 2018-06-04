@@ -7,7 +7,6 @@ RUN mkdir -p /myapp
 WORKDIR /myapp
 
 ENV RAILS_ENV development
-RUN bundle install
 
 ENTRYPOINT bundle install \
   && bundle exec rake db:migrate \
