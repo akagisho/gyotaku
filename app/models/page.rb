@@ -20,8 +20,8 @@ class Page < ApplicationRecord
   end
 
   def get_screenshot(url)
-    screenshot_url = 'https://prickly-bose-5726.arukascloud.io/'
-    Net::HTTP.post(URI.parse(screenshot_url), 'target=' + url).body
+    screenshot_url = 'http://screenshot:3000/screenshot'
+    Net::HTTP.get(URI.parse(screenshot_url + '?url=' + URI.encode(url)))
   end
 
   def get_source(url)
@@ -50,7 +50,7 @@ class Page < ApplicationRecord
     if @is_new_record
       screenshot = self.get_screenshot(self.url)
       File.open(self.file, 'wb') do |f|
-        f.write(Base64.decode64(screenshot))
+        f.write(screenshot)
       end
     end
   end

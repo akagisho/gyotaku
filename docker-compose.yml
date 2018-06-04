@@ -6,3 +6,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/myapp
+    links:
+      - screenshot:screenshot
+  screenshot:
+    image: akagisho/snapshot
