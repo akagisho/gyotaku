@@ -25,9 +25,11 @@
   <%= @page.ipaddr_whois %>
 </p>
 
+<% if File.exists?(@page.file) %>
 <div style="width: 400px; height: 300px; overflow: scroll;">
   <img src="data:image/png;base64,<%= @page.to_base64 %>">
 </div>
+<% end %>
 
 <%= link_to 'Edit', edit_page_path(@page) %> |
 <%= link_to 'Back', pages_path %>

@@ -28,6 +28,20 @@ class Page < ApplicationRecord
     Net::HTTP.get(URI.parse(url))
   end
 
+  def save_page_data
+    uri = URI.parse(self.url)
+    self.ipaddr = Socket.getaddrinfo(uri.host, nil)[0][3]
+
+    screenshot = self.get_screenshot(self.url)
+    File.open(file, 'wb') do |f|
+      f.write(screenshot)
+    end
+
+    self.source = self.get_source(self.url)
+
+    self.save
+  end
+
   private
   def after_initialize
     if self.uuid.nil?
@@ -39,23 +53,17 @@ class Page < ApplicationRecord
 
   def before_save
     @is_new_record = self.new_record?
-
-    uri = URI.parse(self.url)
-    self.ipaddr = Socket.getaddrinfo(uri.host, nil)[0][3]
-
-    self.source = self.get_source(self.url)
   end
 
   def after_save
     if @is_new_record
-      screenshot = self.get_screenshot(self.url)
-      File.open(self.file, 'wb') do |f|
-        f.write(screenshot)
-      end
+      self.delay.save_page_data
     end
   end
 
   def after_destroy
-    File.delete(self.file)
+    if File.exists?(self.file)
+      File.delete(self.file)
+    end
   end
 end
