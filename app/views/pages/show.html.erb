@@ -1,35 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @page.url %>
-</p>
-
-<p>
-  <strong>Ipaddr:</strong>
-  <%= @page.ipaddr %>
-</p>
-
-<p>
-  <strong>Source:</strong>
-  <textarea style="width: 400px; height: 10em; overflow: scroll;"><%= @page.source %></textarea>
-</p>
-
-<p>
-  <strong>Domain whois:</strong>
-  <%= @page.domain_whois %>
-</p>
-
-<p>
-  <strong>Ipaddr whois:</strong>
-  <%= @page.ipaddr_whois %>
-</p>
-
-<% if File.exists?(@page.file) %>
-<div style="width: 400px; height: 300px; overflow: scroll;">
-  <img src="data:image/png;base64,<%= @page.to_base64 %>">
+<%- model_class = Page -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-<% end %>
 
-<%= link_to 'Edit', edit_page_path(@page) %> |
-<%= link_to 'Back', pages_path %>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+  <dd><%= @page.url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ipaddr) %>:</strong></dt>
+  <dd><%= @page.ipaddr %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:source) %>:</strong></dt>
+  <dd><textarea readonly="readonly" style="width: 100%; height: 20em"><%= @page.source %></textarea></dd>
+  <dt><strong><%= model_class.human_attribute_name(:domain_whois) %>:</strong></dt>
+  <dd><%= @page.domain_whois %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ipaddr_whois) %>:</strong></dt>
+  <dd><%= @page.ipaddr_whois %></dd>
+  <dt><strong>Screenshot:</strong></dt>
+  <dd>
+    <% if File.exists?(@page.file) %>
+      <div style="width: 100%; height: 400px; overflow: scroll">
+      <img src="data:image/png;base64,<%= @page.to_base64 %>">
+    <% end %>
+  </dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              pages_path, :class => 'btn btn-default'  %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              page_path(@page),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
