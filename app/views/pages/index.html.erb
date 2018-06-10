@@ -15,13 +15,13 @@
   <tbody>
     <% @pages.each do |page| %>
       <tr>
-        <td><%= link_to page.id, page_path(page) %></td>
-        <td><%= page.url.truncate(50, omission: '...') %></td>
+        <td><%= page.id %></td>
+        <td>
+          <%= link_to page.url.truncate(50, omission: '...'), page_path(page) %>
+        </td>
         <td><%= page.ipaddr %></td>
         <td><%= page.created_at.strftime('%Y-%m-%d %H:%M') %></td>
         <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      page_path(page), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       page_path(page),
                       :method => :delete,
