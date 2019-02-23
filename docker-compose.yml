@@ -4,9 +4,24 @@ services:
     build: .
     ports:
       - "3000:3000"
+    environment:
+      - http_proxy=http://torproxy:8118
+      - https_proxy=https://torproxy:8118
+      - no_proxy=screenshot
+    links:
+      - torproxy
     volumes:
       - .:/myapp
     links:
       - screenshot:screenshot
   screenshot:
     image: akagisho/snapshot
+    ports:
+      - "8118:8118"
+    environment:
+      - http_proxy=http://torproxy:8118
+      - https_proxy=https://torproxy:8118
+    links:
+      - torproxy
+  torproxy:
+    image: dperson/torproxy
