@@ -47,11 +47,12 @@ class Page < ApplicationRecord
 
     begin
       self.source = self.get_source(self.url)
-      self.save
     rescue => e
       logger.warn 'Cannot get html source'
       logger.warn e
+      self.source = e
     end
+    self.save
 
     begin
       screenshot = self.get_screenshot(self.url)
