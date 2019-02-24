@@ -29,15 +29,30 @@ class Page < ApplicationRecord
   end
 
   def save_page_data
-    uri = URI.parse(self.url)
-    self.ipaddr = Socket.getaddrinfo(uri.host, nil)[0][3]
-
-    screenshot = self.get_screenshot(self.url)
-    File.open(file, 'wb') do |f|
-      f.write(screenshot)
+    begin
+      uri = URI.parse(self.url)
+      self.ipaddr = Socket.getaddrinfo(uri.host, nil)[0][3]
+    rescue => e
+      logger.warn 'Cannot get ip-address'
+      logger.warn e
     end
 
-    self.source = self.get_source(self.url)
+    begin
+      self.source = self.get_source(self.url)
+    rescue => e
+      logger.warn 'Cannot get html source'
+      logger.warn e
+    end
+
+    begin
+      screenshot = self.get_screenshot(self.url)
+      File.open(file, 'wb') do |f|
+        f.write(screenshot)
+      end
+    rescue => e
+      logger.warn 'Cannot get screenshot'
+      logger.warn e
+    end
 
     self.save
   end
