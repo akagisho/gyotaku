@@ -8,6 +8,7 @@ services:
       - http_proxy=http://torproxy:8118
       - https_proxy=https://torproxy:8118
       - no_proxy=screenshot,github.com,rubygems.org
+      - HTTP_USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
     links:
       - torproxy
     volumes:
@@ -21,6 +22,7 @@ services:
     environment:
       - http_proxy=http://torproxy:8118
       - https_proxy=https://torproxy:8118
+      - HTTP_USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
     links:
       - torproxy
   torproxy:
