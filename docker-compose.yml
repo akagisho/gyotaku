@@ -7,7 +7,7 @@ services:
     environment:
       - http_proxy=http://torproxy:8118
       - https_proxy=https://torproxy:8118
-      - no_proxy=screenshot
+      - no_proxy=screenshot,github.com,rubygems.org
     links:
       - torproxy
     volumes:
