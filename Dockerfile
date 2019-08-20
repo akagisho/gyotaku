@@ -12,7 +12,7 @@ ENV RAILS_ENV development
 
 COPY files/etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ENTRYPOINT bundle install \
+ENTRYPOINT bundle install --path vendor/bundle \
   && bundle exec rake db:migrate \
   && rm -f /myapp/tmp/pids/server.pid \
   && /usr/bin/supervisord
